@@ -17,8 +17,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    ListView listView;
+    private Timer refresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +55,32 @@ public class MainActivity extends AppCompatActivity
 
         ListAdapter adapter = new MainListAdapter(this,PCrooms);
 
-        ListView listView = (ListView) findViewById(R.id.main_list_view);
+        listView = (ListView) findViewById(R.id.main_list_view);
 
         listView.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refresh = new Timer();
+        refresh.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((MainListAdapter)listView.getAdapter()).notifyDataSetChanged();
+                    }
+                });
+            }
+        },0,1000);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        refresh.cancel();
     }
 
     @Override
