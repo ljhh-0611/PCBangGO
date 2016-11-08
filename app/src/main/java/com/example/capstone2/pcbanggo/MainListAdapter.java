@@ -1,46 +1,59 @@
 package com.example.capstone2.pcbanggo;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by Jeff on 2016-11-02.
  */
 
-public class MainListAdapter extends ArrayAdapter<String>{
+public class MainListAdapter extends BaseAdapter{
 
-    public MainListAdapter(Context context, String[] objects) {
-        super(context, R.layout.main_row_layout, objects);
+    Context context;
+    int layout;
+    ArrayList<ListViewItem> lv;
+    LayoutInflater inf;
+    public MainListAdapter(Context context, int layout, ArrayList<ListViewItem> lv) {
+        this.context = context;
+        this.layout = layout;
+        this.lv = lv;
+        inf = (LayoutInflater)context.getSystemService
+                (Context.LAYOUT_INFLATER_SERVICE);
     }
-
-    @NonNull
+    @Override
+    public int getCount() {
+        return lv.size();
+    }
+    @Override
+    public Object getItem(int position) {
+        return lv.get(position);
+    }
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = LayoutInflater.from(getContext());
-        View view = inflater.inflate(R.layout.main_row_layout,parent,false);
+        if (convertView==null) {
+            convertView = inf.inflate(layout, null);
+        }
 
-        String text = getItem(position);
+        ImageView iv = (ImageView)convertView.findViewById(R.id.imageView1);
+        TextView PcName = (TextView)convertView.findViewById(R.id.main_row_text);
+        TextView SeatInfo = (TextView)convertView.findViewById(R.id.seat);
 
-        TextView textView = (TextView) view.findViewById(R.id.main_row_text);
+        ListViewItem m = lv.get(position);
+        iv.setImageResource(m.iconDrawable);
+        PcName.setText(m.titleStr);
+        SeatInfo.setText(m.descStr);
 
-        textView.setText(text);
-
-        int layoutHeight = (view.findViewById(R.id.row_layout)).getHeight();
-
-        TextView recentSeat = (TextView) view.findViewById(R.id.recent_seat);
-        recentSeat.setText("Current Empty Seat: XX");
-
-        TextView maxConsecSeat = (TextView) view.findViewById(R.id.max_consecutive_seat);
-        maxConsecSeat.setText("Max-Consec. Seat: XX");
-
-        return view;
+        return convertView;
     }
 }
