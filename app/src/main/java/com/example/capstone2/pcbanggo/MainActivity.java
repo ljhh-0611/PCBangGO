@@ -1,8 +1,12 @@
 package com.example.capstone2.pcbanggo;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,6 +21,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -25,6 +30,10 @@ public class MainActivity extends AppCompatActivity
 
     ListView listView;
     private Timer refresh;
+
+    PCroomDBHelper pcroom_helper;
+    SQLiteDatabase pcroom_db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +59,20 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        pcroom_helper = new PCroomDBHelper(this);
+        pcroom_db = pcroom_helper.getWritableDatabase();
+        Cursor cursor = pcroom_db.query("pcroomlist",null,null,null,null,null,null);
+        ArrayList<String> rooms = new ArrayList<String>();
+
+        cursor.moveToFirst();
+        rooms.add(String.valueOf(cursor.getString(1)));
+        while( !cursor.isLast() ){
+            cursor.moveToNext();
+            rooms.add(String.valueOf(cursor.getString(1)));
+        }
+
+        cursor.close();
 
         String[] PCrooms = {"3POP","Arachne","Joy","Rainbow","ETC."};
 
