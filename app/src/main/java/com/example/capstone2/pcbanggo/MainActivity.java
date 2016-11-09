@@ -1,10 +1,10 @@
 package com.example.capstone2.pcbanggo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,16 +12,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListAdapter;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    ArrayList<ListViewItem> lv = new ArrayList<ListViewItem>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        startActivity(new Intent(this, SplashActivity.class));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -45,13 +49,35 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        String[] PCrooms = {"3POP","Arachne","Joy","Rainbow","ETC."};
+        ListView listView;
+        MainListAdapter adapter;
 
-        ListAdapter adapter = new MainListAdapter(this,PCrooms);
+        adapter = new MainListAdapter(getApplicationContext(),R.layout.main_row_layout,lv) ;
 
-        ListView listView = (ListView) findViewById(R.id.main_list_view);
 
+        listView = (ListView) findViewById(R.id.main_list_view);
         listView.setAdapter(adapter);
+
+        lv.add(new ListViewItem("쓰리팝PC",R.drawable.pc_1,"남은 좌석 : \n" +
+                "최대 연속 좌석"));
+        lv.add(new ListViewItem("아라크네PC",R.drawable.pc_2,"남은 좌석 : \n" +
+                "최대 연속 좌석"));
+        lv.add(new ListViewItem("맥스피드PC",R.drawable.pc_3,"남은 좌석 : \n" +
+                "최대 연속 좌석"));
+        lv.add(new ListViewItem("초이스PC",R.drawable.pc_4,"남은 좌석 : \n" +
+                "최대 연속 좌석"));
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView parent, View v, int position, long id) {
+
+                Intent intent = new Intent(getApplicationContext(),infoPC.class);
+
+                intent.putExtra("title",lv.get(position).titleStr);
+                intent.putExtra("img",lv.get(position).iconDrawable);
+                startActivity(intent);
+            }
+        }) ;
     }
 
     @Override
@@ -112,3 +138,4 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 }
+
