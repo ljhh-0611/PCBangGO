@@ -13,7 +13,22 @@ public class ListViewItem {
         super();
         this.titleStr = title;
         this.descStr = desc;
-        this.iconDrawable = icon;
+        switch(icon)
+        {
+            case 0:
+                this.iconDrawable = R.drawable.pc_1;
+                break;
+            case 1:
+                this.iconDrawable = R.drawable.pc_2;
+                break;
+            case 2:
+                this.iconDrawable = R.drawable.pc_3;
+                break;
+            case 3:
+                this.iconDrawable = R.drawable.pc_4;
+                break;
+        }
+        //this.iconDrawable = icon;
     }
     public void setIcon(int icon) {
         iconDrawable = icon;
