@@ -1,8 +1,8 @@
 package com.example.capstone2.pcbanggo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.view.View;
@@ -14,20 +14,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import static com.example.capstone2.pcbanggo.R.id.text;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    ArrayList<ListViewItem> lv = new ArrayList<ListViewItem>();
+
+    ArrayList<ListViewItem> lv = new ArrayList<>();
+    ListView listView;
+    Timer refresh;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         startActivity(new Intent(this, SplashActivity.class));
@@ -63,7 +66,6 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        ListView listView;
         MainListAdapter adapter;
 
         adapter = new MainListAdapter(getApplicationContext(),R.layout.main_row_layout,lv) ;
