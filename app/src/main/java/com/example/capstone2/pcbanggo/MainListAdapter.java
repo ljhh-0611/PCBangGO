@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ import java.util.List;
 
 public class MainListAdapter extends ArrayAdapter<String>{
 
-    public MainListAdapter(Context context, String[] objects) {
+    public MainListAdapter(Context context, ArrayList<String> objects) {
         super(context, R.layout.main_row_layout, objects);
     }
 

@@ -14,15 +14,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Adapter;
+import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import static com.example.capstone2.pcbanggo.R.id.text;
+import static java.sql.Types.NULL;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    String[] PCrooms = {"3POP","Arachne","Joy","Rainbow","ETC."};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,23 +37,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-                fab.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                        String[] people = {"2명","3명","4명","5명 이상"};
-                        builder.setTitle("동행 인원")
-                                .setItems(people, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        // 검색 후 리스트 생성
-                                    }
-                                });
-                        builder.setNegativeButton("취소", null);
-                        builder.create();
-                        builder.show();
-                    }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -58,13 +47,42 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        String[] PCrooms = {"3POP","Arachne","Joy","Rainbow","ETC."};
+        //String[] PCrooms = {"3POP","Arachne","Joy","Rainbow","ETC."};
+        final ArrayList<String> PClist = new ArrayList<String>();
+        for (int i = 0; i<PCrooms.length; i++) {
+            PClist.add(PCrooms[i]);
+        }
 
-        ListAdapter adapter = new MainListAdapter(this,PCrooms);
+        final ListAdapter adapter = new MainListAdapter(this, PClist);
 
         ListView listView = (ListView) findViewById(R.id.main_list_view);
 
         listView.setAdapter(adapter);
+// ***********************************************************
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                String[] people = {"전체 목록 보기", "1자리", "2자리", "3자리", "4자리", "5자리 이상"};
+                builder.setTitle("필요 연속 좌석")
+                        .setItems(people, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // 검색 후 리스트 생성
+                                PClist.clear();
+                                for (int i = 0; i<PCrooms.length; i++) {
+                                    if(PCrooms[i].length()>(which*2)) //여기에 검색 기능을 추가해야함
+                                        PClist.add(PCrooms[i]);
+                                }
+                                ((BaseAdapter)adapter).notifyDataSetChanged();
+                            }
+                        });
+                builder.setNegativeButton("취소", null);
+                builder.create();
+                builder.show();
+            }
+        });
+        // ***********************************************************
     }
 
     @Override
