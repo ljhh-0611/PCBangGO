@@ -1,6 +1,7 @@
 package com.example.capstone2.pcbanggo;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.app.AlertDialog;
@@ -42,7 +43,6 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity
 
         for (int i = 0; i<PCrooms.length; i++) {
             lv.add(new ListViewItem(PCrooms[i],i,"남은 좌석 : \n" +
-                    "최대 연속 좌석"));
+                    "최대 연속 좌석 : "));
         }
 /*
         lv.add(new ListViewItem("쓰리팝PC",R.drawable.pc_1,"남은 좌석 : \n" +
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity
                                 for (int i = 0; i<PCrooms.length; i++) {
                                     if(PCrooms[i].length()>(which*2)) //여기에 검색 기능을 추가해야함-지금은 아무 기능도 없습니다.
                                         lv.add(new ListViewItem(PCrooms[i],i,"남은 좌석 : \n" +
-                                                "최대 연속 좌석"));
+                                                "최대 연속 좌석 : "));
                                 }
                                 ((BaseAdapter)adapter).notifyDataSetChanged();
                             }
