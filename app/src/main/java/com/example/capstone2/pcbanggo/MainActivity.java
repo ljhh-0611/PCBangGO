@@ -1,6 +1,8 @@
 package com.example.capstone2.pcbanggo;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteCursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,11 +18,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -28,11 +28,15 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    PCroomDBHelper pcroomDBHelper;
+    SQLiteDatabase pcroomDB;
+    Cursor seatCursor;
+    final static String seatSelect = "SELECT * FROM pc_seat";
+    SeatCursorAdapter seatAdapter;
 
-    ArrayList<ListViewItem> lv = new ArrayList<>();
+    //ArrayList<ListViewItem> lv = new ArrayList<>();
     ListView listView;
     Timer refresh;
-    String[] PCrooms = {"3POP","Arachne","NET","Rainbow","ANDSOON"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +45,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -52,19 +55,23 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        final MainListAdapter adapter;
-
-        adapter = new MainListAdapter(getApplicationContext(),R.layout.main_row_layout,lv) ;
-
-
         listView = (ListView) findViewById(R.id.main_list_view);
-        listView.setAdapter(adapter);
 
-        for (int i = 0; i<PCrooms.length; i++) {
-            lv.add(new ListViewItem(PCrooms[i],i,"남은 좌석 : \n" +
-                    "최대 연속 좌석 : "));
-        }
-/*
+        pcroomDBHelper = new PCroomDBHelper(this);
+        pcroomDB = pcroomDBHelper.getWritableDatabase();
+        seatCursor = pcroomDB.rawQuery(seatSelect,null);
+        seatAdapter = new SeatCursorAdapter(this,seatCursor);
+
+        listView.setAdapter(seatAdapter);
+        /*
+        //MainListAdapter adapter;
+
+        //adapter = new MainListAdapter(this,R.layout.main_row_layout,lv);
+
+
+
+        //listView.setAdapter(adapter);
+
         lv.add(new ListViewItem("쓰리팝PC",R.drawable.pc_1,"남은 좌석 : \n" +
                 "최대 연속 좌석"));
         lv.add(new ListViewItem("아라크네PC",R.drawable.pc_2,"남은 좌석 : \n" +
@@ -79,9 +86,10 @@ public class MainActivity extends AppCompatActivity
             public void onItemClick(AdapterView parent, View v, int position, long id) {
 
                 Intent intent = new Intent(getApplicationContext(),infoPC.class);
-
-                intent.putExtra("title",lv.get(position).titleStr);
-                intent.putExtra("img",lv.get(position).iconDrawable);
+                SQLiteCursor sqlCursor = (SQLiteCursor) parent.getItemAtPosition(position);
+                intent.putExtra("title",sqlCursor.getString(sqlCursor.getColumnIndex("name")));
+                //intent.putExtra("title",lv.get(position).titleStr);
+                //intent.putExtra("img",v.);
                 startActivity(intent);
             }
         }) ;
@@ -91,18 +99,11 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                String[] people = {"전체 목록 보기", "1자리", "2자리", "3자리", "4자리", "5자리 이상"};
-                builder.setTitle("필요 연속 좌석")
+                String[] people = {"2명","3명","4명","5명 이상"};
+                builder.setTitle("동행 인원")
                         .setItems(people, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // 검색 후 리스트 생성
-                                lv.clear();
-                                for (int i = 0; i<PCrooms.length; i++) {
-                                    if(PCrooms[i].length()>(which*2)) //여기에 검색 기능을 추가해야함-지금은 아무 기능도 없습니다.
-                                        lv.add(new ListViewItem(PCrooms[i],i,"남은 좌석 : \n" +
-                                                "최대 연속 좌석 : "));
-                                }
-                                ((BaseAdapter)adapter).notifyDataSetChanged();
                             }
                         });
                 builder.setNegativeButton("취소", null);
@@ -110,8 +111,6 @@ public class MainActivity extends AppCompatActivity
                 builder.show();
             }
         });
-
-
     }
 
     @Override
@@ -124,7 +123,7 @@ public class MainActivity extends AppCompatActivity
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ((MainListAdapter)listView.getAdapter()).notifyDataSetChanged();
+                        //((SeatCursorAdapter)listView.getAdapter()).notifyDataSetChanged();
                     }
                 });
             }
