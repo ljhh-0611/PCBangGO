@@ -27,7 +27,6 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
     PCroomDBHelper pcroomDBHelper;
     SQLiteDatabase pcroomDB;
     Cursor seatCursor;
@@ -60,7 +59,7 @@ public class MainActivity extends AppCompatActivity
         pcroomDBHelper = new PCroomDBHelper(this);
         pcroomDB = pcroomDBHelper.getWritableDatabase();
         seatCursor = pcroomDB.rawQuery(seatSelect,null);
-        seatAdapter = new SeatCursorAdapter(this,seatCursor);
+        seatAdapter = new SeatCursorAdapter(this,seatCursor,0);
 
         listView.setAdapter(seatAdapter);
         /*
@@ -97,13 +96,14 @@ public class MainActivity extends AppCompatActivity
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                String[] people = {"2명","3명","4명","5명 이상"};
-                builder.setTitle("동행 인원")
+                String[] people = {"전체 목록 보기","1명","2명","3명","4명","5명 이상"};
+                builder.setTitle("필요 연속 좌석")
                         .setItems(people, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // 검색 후 리스트 생성
+                                listView.setAdapter(new SeatCursorAdapter(view.getContext(),seatCursor,which));
                             }
                         });
                 builder.setNegativeButton("취소", null);
