@@ -7,8 +7,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
+
 
 /**
  * Created by skscp on 2016-11-16.
@@ -17,6 +17,7 @@ import android.view.View;
 
 public class MyView extends View {
     PCroomDBHelper p_helper;
+    infoPC infoPC;
     final static String seatSelect = "SELECT * FROM pc_seat";
     String KEY_PCROOM = "name";
     String KEY_ROW = "row";
@@ -24,8 +25,9 @@ public class MyView extends View {
     String KEY_SEATMAP = "seat_map";
     String KEY_CANSEAT = "can_seat";
     String KEY_ORIENT = "seat_orient";
+
     public MyView(Context context, AttributeSet attrs) {
-        super(context,attrs); // 부모의 인자값이 있는 생성자를 호출한다
+        super(context, attrs); // 부모의 인자값이 있는 생성자를 호출한다
         p_helper = new PCroomDBHelper(context);
     }
 
@@ -41,46 +43,67 @@ public class MyView extends View {
         setBackgroundColor(Color.WHITE); // 배경색을 지정
 
         SQLiteDatabase PCroomdb = p_helper.getWritableDatabase();
-        Cursor cursor = PCroomdb.rawQuery(seatSelect,null);
+        Cursor cursor = PCroomdb.rawQuery(seatSelect, null);
 
         cursor.moveToFirst();
+
+        String pcroom = infoPC.Pcroom;
+
+        int id = 0;
+
+        switch (pcroom) {
+            case "3POP":
+                id = 0;
+                break;
+            case "Arachne":
+                id = 1;
+                break;
+            case "Max":
+                id = 2;
+                break;
+            case "Choice":
+                id = 3;
+                break;
+            default:
+                break;
+        }
+
+        cursor.moveToPosition(id);
 
         final int row = cursor.getInt(cursor.getColumnIndex(KEY_ROW));
         final int col = cursor.getInt(cursor.getColumnIndex(KEY_COL));
 
         int[][] seat_map = new int[col][row];
-        System.out.println(row+col);
+
         String[] seats = cursor.getString(cursor.getColumnIndex(KEY_SEATMAP)).split(" ");
         for (int j = 0; j < col; j++) {
             for (int k = 0; k < row; k++) {
                 seat_map[j][k] = Integer.parseInt(seats[j * row + k]);
-                System.out.print(seat_map[j][k] + " "); //데이터 확인차 출력
             }
-            System.out.println(); //데이터 확인차 출력
         }
 
 
         String[] can_seats = cursor.getString(cursor.getColumnIndex(KEY_CANSEAT)).split(" ");
         int[] can_seat = new int[can_seats.length];
-        for(int i=0;i<can_seats.length;i++){
+        for (int i = 0; i < can_seats.length; i++) {
             can_seat[i] = Integer.parseInt(can_seats[i]);
         }
 
-        int x0 = 150 , x1 = 250;
-        int y0 = 150 , y1 = 250;
-        int i,j;
-        for(i = 0; i < col ; i++) {
-            for(j = 0 ; j < row; j++)
-                if(seat_map[i][j] != 0){
+        int x0 = 150, x1 = 250;
+        int y0 = 150, y1 = 250;
+        int i, j;
+        for (i = 0; i < col; i++) {
+            for (j = 0; j < row; j++) {
+                if (seat_map[i][j] != 0) {
                     if (can_seat[seat_map[i][j] - 1] != 0) {
                         paint.setColor(Color.RED);
-                    }
-                    else{
+                    } else {
                         paint.setColor(Color.BLUE);
                     }
-                    canvas.drawRect(x0+i*100, y0+j*100, x1+i*100, y1+j*100, paint);
-                    canvas.drawText(seats[i * 6 + j],x0+i*100+25, y0+j*100+65, paint2);
+                    canvas.drawRect(x0 + i * 100, y0 + j * 100, x1 + i * 100, y1 + j * 100, paint);
+                    canvas.drawText(seats[i * row + j], x0 + i * 100 + 25, y0 + j * 100 + 65, paint2);
                 }
+            }
         }
     }
 }
