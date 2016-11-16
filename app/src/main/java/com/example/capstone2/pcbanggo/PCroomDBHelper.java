@@ -18,7 +18,7 @@ public class PCroomDBHelper extends SQLiteOpenHelper {
     String KEY_ORIENT = "seat_orient";
     String KEY_CANSEAT = "can_seat";
 
-    public PCroomDBHelper(Context context){super(context,"pcbang.db",null,7);}
+    public PCroomDBHelper(Context context){super(context,"pcbang.db",null,8);}
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
@@ -44,9 +44,9 @@ public class PCroomDBHelper extends SQLiteOpenHelper {
                 "'1 1 0 1 1 1 1 0 1 1'",
                 "'1 1 0 1 1 1 1 0 1 1'",
                 "'1 1 1 1 1 1 1 1'"};
-        String[] can_seats = {"'1 1 0 0 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0'",
-                "'0 1 0 1 1 1 0 0 0 0'",
-                "'0 0 0 0 1 1 0 0 0 0'",
+        String[] can_seats = {"'1 1 0 0 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0'",
+                "'0 1 0 1 1 1 0 0'",
+                "'0 0 0 0 1 1 0 0'",
                 "'1 0 0 0 1 1 1 0'"};
 
         for (int i=0;i<4;i++) {
