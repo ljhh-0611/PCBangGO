@@ -32,6 +32,6 @@ public class SplashActivity extends FragmentActivity
             }
         };
 
-        handler.sendEmptyMessageDelayed(0, 3000);    // ms, 3초후 종료시킴
+        handler.sendEmptyMessageDelayed(0, 2000);    // ms, 2초후 종료시킴
     }
 }
