@@ -84,16 +84,18 @@ public class SeatCursorAdapter extends CursorAdapter {
         for (int j = 0; j < seats.length; j++) {
             can_seat[j] = Integer.parseInt(seats[j]);
         }
-
+        // 최대 연속 좌석 - maxl : 최대 연속 좌석
         for (int j = 0; j < col; j++) {
             for (int k = 0; k < row; k++) {
                 if (seat_map[j][k] == 0)
                     continue;
+                // max : 현재 좌석에 붙어있는 다음 좌석 수
                 int max = find_seat(seat_map, map_orient, can_seat, j, k, row, col, 0);
                 if (max > maxl)
                     maxl = max;
             }
         }
+        // 현재 남은 좌석 수
         int i=0 ;
         while (i<can_seat.length) {
             if (can_seat[i] == 1) {
