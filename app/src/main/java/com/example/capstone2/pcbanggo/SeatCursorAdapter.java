@@ -66,9 +66,9 @@ public class SeatCursorAdapter extends CursorAdapter {
         for (int j = 0; j < col; j++) {
             for (int k = 0; k < row; k++) {
                 seat_map[j][k] = Integer.parseInt(seats[j * row + k]);
-                System.out.print(seat_map[j][k] + " "); //데이터 확인차 출력
+//                System.out.print(seat_map[j][k] + " "); //데이터 확인차 출력
             }
-            System.out.println(); //데이터 확인차 출력
+//            System.out.println(); //데이터 확인차 출력
         }
 
         seats = cursor.getString(cursor.getColumnIndex(KEY_ORIENT)).split(" ");
@@ -100,7 +100,6 @@ public class SeatCursorAdapter extends CursorAdapter {
             }
             i++;
         }
-
 
         if (maxl >= which) {
             String pcroom = cursor.getString(cursor.getColumnIndex(KEY_PCROOM));
