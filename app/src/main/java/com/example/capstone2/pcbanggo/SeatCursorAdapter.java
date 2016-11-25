@@ -95,7 +95,7 @@ public class SeatCursorAdapter extends CursorAdapter {
         }
         int i=0 ;
         while (i<can_seat.length) {
-            if (can_seat[i] == 1) {
+            if (can_seat[i] == 0) {
                 count++;
             }
             i++;
