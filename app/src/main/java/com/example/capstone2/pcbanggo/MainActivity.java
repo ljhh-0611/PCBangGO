@@ -18,6 +18,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -93,10 +95,20 @@ public class MainActivity extends AppCompatActivity
             }
         }) ;
 
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
+                final View checkBoxView = View.inflate(view.getContext(), R.layout.sp_checkbox, null);
+                CheckBox checkBox = (CheckBox) checkBoxView.findViewById(R.id.checkbox);
+                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                        // Save to shared preferences
+                    }
+                });
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                 String[] people = {"전체 목록 보기","1명","2명","3명","4명","5명 이상"};
                 builder.setTitle("필요 연속 좌석")
@@ -107,6 +119,7 @@ public class MainActivity extends AppCompatActivity
                             }
                         });
                 builder.setNegativeButton("취소", null);
+                builder.setView(checkBoxView);
                 builder.create();
                 builder.show();
             }
