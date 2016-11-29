@@ -18,6 +18,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -59,27 +61,10 @@ public class MainActivity extends AppCompatActivity
         pcroomDBHelper = new PCroomDBHelper(this);
         pcroomDB = pcroomDBHelper.getWritableDatabase();
         seatCursor = pcroomDB.rawQuery(seatSelect,null);
-        seatAdapter = new SeatCursorAdapter(this,seatCursor,0);
+        seatAdapter = new SeatCursorAdapter(this,seatCursor,0,false);
 
         listView.setAdapter(seatAdapter);
-        /*
-        //MainListAdapter adapter;
 
-        //adapter = new MainListAdapter(this,R.layout.main_row_layout,lv);
-
-
-
-        //listView.setAdapter(adapter);
-
-        lv.add(new ListViewItem("쓰리팝PC",R.drawable.pc_1,"남은 좌석 : \n" +
-                "최대 연속 좌석"));
-        lv.add(new ListViewItem("아라크네PC",R.drawable.pc_2,"남은 좌석 : \n" +
-                "최대 연속 좌석"));
-        lv.add(new ListViewItem("맥스피드PC",R.drawable.pc_3,"남은 좌석 : \n" +
-                "최대 연속 좌석"));
-        lv.add(new ListViewItem("초이스PC",R.drawable.pc_4,"남은 좌석 : \n" +
-                "최대 연속 좌석"));
-*/
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id) {
@@ -97,16 +82,23 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
+                final View checkBoxView = View.inflate(view.getContext(), R.layout.sp_checkbox, null);
+                final CheckBox checkBox = (CheckBox) checkBoxView.findViewById(R.id.checkbox);
+                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    }
+                });
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                String[] people = {"전체 목록 보기","1명","2명","3명","4명","5명 이상"};
+                String[] people = {"전체 목록 보기","1명","2명","3명","4명","5명","6명 이상"};
                 builder.setTitle("필요 연속 좌석")
                         .setItems(people, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                // 검색 후 리스트 생성
-                                listView.setAdapter(new SeatCursorAdapter(view.getContext(),seatCursor,which));
+                                listView.setAdapter(new SeatCursorAdapter(view.getContext(),seatCursor,which,checkBox.isChecked()));
                             }
                         });
                 builder.setNegativeButton("취소", null);
+                builder.setView(checkBoxView);
                 builder.create();
                 builder.show();
             }
