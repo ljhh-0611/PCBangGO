@@ -1,6 +1,7 @@
 package com.example.capstone2.pcbanggo;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**
@@ -17,6 +27,12 @@ import android.widget.TextView;
 public class infoPC extends AppCompatActivity {
 
     public static String Pcroom = null;
+
+    Timer refresh;
+
+    asyncPHP task;
+    String result;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +51,31 @@ public class infoPC extends AppCompatActivity {
 
         //  iv2.setImageResource(R.drawable.infopc2); // pc방 자리 정보
     } // end of onCreate
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refresh = new Timer();
+        refresh.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        task = new asyncPHP();
+                        task.execute();
+                        //TODO - 사진 업데이트 해서 다시 뿌려주기
+                    }
+                });
+            }
+        },0,4000);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        refresh.cancel();
+    }
 
 
     @Override
@@ -71,5 +112,62 @@ public class infoPC extends AppCompatActivity {
         }
 */
         return super.onOptionsItemSelected(item);
+    }
+
+    private class asyncPHP extends AsyncTask<Void,Void,Void> {//param, progress, result
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //Toast.makeText(MainActivity.this,"Json Data is downloading",Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            //txt.setText(result);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            StringBuilder output = new StringBuilder();
+            try {
+                URL url = new URL("http://14.63.164.76/pcgo.php");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                if (conn != null){
+                    conn.setConnectTimeout(10000);
+                    conn.setRequestMethod("GET");
+                    conn.setDoInput(true);
+                    conn.setDoOutput(true);
+
+                    int resCode = conn.getResponseCode();
+
+                    if (resCode == HttpURLConnection.HTTP_OK) {
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream())) ;
+                        String line = null;
+                        while(true) {
+                            line = reader.readLine();
+                            if (line == null) {
+                                break;
+                            }
+                            output.append(line + "\n");
+                        }
+
+                        reader.close();
+                        conn.disconnect();
+                    }
+
+                    result = output.toString();
+
+                }
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
     }
 }

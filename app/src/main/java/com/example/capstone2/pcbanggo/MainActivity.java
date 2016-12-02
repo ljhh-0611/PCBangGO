@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteCursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -23,6 +24,12 @@ import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -38,6 +45,9 @@ public class MainActivity extends AppCompatActivity
     //ArrayList<ListViewItem> lv = new ArrayList<>();
     ListView listView;
     Timer refresh;
+
+    asyncPHP task;
+    String result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,11 +125,13 @@ public class MainActivity extends AppCompatActivity
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //((SeatCursorAdapter)listView.getAdapter()).notifyDataSetChanged();
+                        task = new asyncPHP();
+                        task.execute();
+                        ((SeatCursorAdapter)listView.getAdapter()).notifyDataSetChanged();
                     }
                 });
             }
-        },0,1000);
+        },0,4000);
     }
 
     @Override
@@ -184,5 +196,63 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+    private class asyncPHP extends AsyncTask<Void,Void,Void> {//param, progress, result
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //Toast.makeText(MainActivity.this,"Json Data is downloading",Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            //txt.setText(result);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            StringBuilder output = new StringBuilder();
+            try {
+                URL url = new URL("http://14.63.164.76/pcgo.php");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                if (conn != null){
+                    conn.setConnectTimeout(10000);
+                    conn.setRequestMethod("GET");
+                    conn.setDoInput(true);
+                    conn.setDoOutput(true);
+
+                    int resCode = conn.getResponseCode();
+
+                    if (resCode == HttpURLConnection.HTTP_OK) {
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream())) ;
+                        String line = null;
+                        while(true) {
+                            line = reader.readLine();
+                            if (line == null) {
+                                break;
+                            }
+                            output.append(line + "\n");
+                        }
+
+                        reader.close();
+                        conn.disconnect();
+                    }
+
+                    result = output.toString();
+
+                }
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
     }
 }
