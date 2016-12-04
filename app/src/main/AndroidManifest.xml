@@ -19,8 +19,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".infoPC"></activity>
+        <activity android:name=".infoPCroom"></activity>
         <activity android:name=".SplashActivity"
             android:theme="@android:style/Theme.NoTitleBar"/>
     </application>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest>

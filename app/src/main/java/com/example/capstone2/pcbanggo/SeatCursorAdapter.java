@@ -152,7 +152,7 @@ public class SeatCursorAdapter extends CursorAdapter {
                     img.setImageDrawable(context.getDrawable(R.drawable.pc_4));
                     break;
                 case "Red":
-                    img.setImageDrawable(context.getDrawable(R.drawable.pc_4));
+                    img.setImageDrawable(context.getDrawable(R.drawable.pc_5));
                     break;
             }
 

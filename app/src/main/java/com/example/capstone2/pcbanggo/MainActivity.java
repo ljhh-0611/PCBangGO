@@ -82,8 +82,6 @@ public class MainActivity extends AppCompatActivity
                 Intent intent = new Intent(getApplicationContext(),infoPC.class);
                 SQLiteCursor sqlCursor = (SQLiteCursor) parent.getItemAtPosition(position);
                 intent.putExtra("title",sqlCursor.getString(sqlCursor.getColumnIndex("name")));
-                //intent.putExtra("title",lv.get(position).titleStr);
-                //intent.putExtra("img",v.);
                 startActivity(intent);
             }
         }) ;

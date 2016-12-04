@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+        <!--<item-->
+        <!--android:id="@+id/location"-->
+        <!--android:title="위치" />-->
+        <!--<item-->
+        <!--android:id="@+id/pc"-->
+        <!--android:title="PC 사양" />-->
+        <!--<item-->
+        <!--android:id="@+id/info"-->
+        <!--android:title="기타 정보" />-->
+        <!--<item-->
+        <!--android:id="@+id/phone"-->
+        <!--android:title="전화번호" />-->
         <item
-            android:id="@+id/location"
-            android:title="위치" />
-        <item
-            android:id="@+id/pc"
-            android:title="PC 사양" />
-        <item
-            android:id="@+id/info"
-            android:title="기타 정보" />
-        <item
-            android:id="@+id/phone"
-            android:title="전화번호" />
-
+            android:id="@+id/pcroominfo"
+            android:title="PC방 정보" />
 </menu>
