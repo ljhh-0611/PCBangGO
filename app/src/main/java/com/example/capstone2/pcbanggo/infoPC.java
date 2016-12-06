@@ -1,6 +1,7 @@
 package com.example.capstone2.pcbanggo;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -34,14 +35,12 @@ public class infoPC extends AppCompatActivity {
     asyncPHP task;
     String result;
 
-    Menu menu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.info_pc);
 
         TextView pcTitle = (TextView)findViewById(R.id.textView1);
-        //ImageView iv = (ImageView)findViewById(R.id.imageView1);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
@@ -135,6 +134,42 @@ public class infoPC extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    void update(String receive){
+
+        PCroomDBHelper pcroomDBHelper;
+        SQLiteDatabase pcroomDB;
+
+        pcroomDBHelper = new PCroomDBHelper(this);
+        pcroomDB = pcroomDBHelper.getWritableDatabase();
+
+        String[] PCrooms = {"'3POP'","'Arachne'", "'Max'","'Choice'","'Red'"};
+        String[] can_seats = {"'3POP'","'Arachne'", "'Max'","'Choice'","'Red'"};
+        String[] cut_at = receive.split("@");
+        for (int i=0;i < 5;i++) {
+            String[] cut_colon = cut_at[i].split(":");
+            int limit = Integer.parseInt(cut_colon[1]);
+            if(limit < 0) limit &= 0xFF;
+            StringBuilder buff = new StringBuilder();
+            buff.append("'");
+            int count = 0;
+            for(int j=2;j<limit/8+3;j++) {
+                byte seat = Byte.parseByte(cut_colon[j]);
+                for(int k=0;k<8;k++) {
+                    if(count>=limit) break;
+                    buff.append((seat & 1)+" ");
+                    seat = (byte) (seat>>>1);
+                    count ++;
+                }
+            }
+            buff.deleteCharAt(buff.length()-1);
+            buff.append("'");
+            can_seats[i] = buff.toString();
+            String query = String.format("UPDATE pc_seat SET can_seat =" +can_seats[i]+ " WHERE name = " + PCrooms[i]);
+            pcroomDB.execSQL( query );
+
+        }
+
+    }
     private class asyncPHP extends AsyncTask<Void,Void,Void> {//param, progress, result
 
         @Override
@@ -180,7 +215,7 @@ public class infoPC extends AppCompatActivity {
                     }
 
                     result = output.toString();
-
+                    update(result);
                 }
             } catch (MalformedURLException e) {
                 e.printStackTrace();

@@ -15,6 +15,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -42,7 +43,6 @@ public class MainActivity extends AppCompatActivity
     final static String seatSelect = "SELECT * FROM pc_seat";
     SeatCursorAdapter seatAdapter;
 
-    //ArrayList<ListViewItem> lv = new ArrayList<>();
     ListView listView;
     Timer refresh;
 
@@ -196,6 +196,36 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    void update(String receive){
+
+        String[] PCrooms = {"'3POP'","'Arachne'", "'Max'","'Choice'","'Red'"};
+        String[] can_seats = {"'3POP'","'Arachne'", "'Max'","'Choice'","'Red'"};
+        String[] cut_at = receive.split("@");
+        for (int i=0;i < 5;i++) {
+            String[] cut_colon = cut_at[i].split(":");
+            int limit = Integer.parseInt(cut_colon[1]);
+            if(limit < 0) limit &= 0xFF;
+            StringBuilder buff = new StringBuilder();
+            buff.append("'");
+            int count = 0;
+            for(int j=2;j<limit/8+3;j++) {
+                byte seat = Byte.parseByte(cut_colon[j]);
+                for(int k=0;k<8;k++) {
+                    if(count>=limit) break;
+                    buff.append((seat & 1)+" ");
+                    seat = (byte) (seat>>>1);
+                    count ++;
+                }
+            }
+            buff.deleteCharAt(buff.length()-1);
+            buff.append("'");
+            can_seats[i] = buff.toString();
+            String query = String.format("UPDATE pc_seat SET can_seat =" +can_seats[i]+ " WHERE name = " + PCrooms[i]);
+            pcroomDB.execSQL( query );
+
+        }
+
+    }
 
     private class asyncPHP extends AsyncTask<Void,Void,Void> {//param, progress, result
 
@@ -242,6 +272,8 @@ public class MainActivity extends AppCompatActivity
                     }
 
                     result = output.toString();
+
+                    update(result);
 
                 }
             } catch (MalformedURLException e) {
