@@ -9,6 +9,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,7 +22,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Timer;
 import java.util.TimerTask;
-
 
 /**
  * Created by skscp on 2016-11-03.
@@ -34,11 +35,41 @@ public class infoPC extends AppCompatActivity {
 
     asyncPHP task;
     String result;
+    private int xDelta, yDelta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.info_pc);
+
+        View info = (View) getLayoutInflater().inflate(R.layout.info_pc, null);
+        final View myinfo = (View) info.findViewById(R.id.myView);
+        myinfo.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int X = (int) event.getRawX();
+                final int Y = (int) event.getRawY();
+                switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                    case MotionEvent.ACTION_DOWN:
+                        xDelta = (int) (X - myinfo.getTranslationX());
+                        yDelta = (int) (Y - myinfo.getTranslationY());
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        break;
+                    case MotionEvent.ACTION_POINTER_DOWN:
+                        break;
+                    case MotionEvent.ACTION_POINTER_UP:
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        myinfo.setTranslationX(X - xDelta);
+                        myinfo.setTranslationY(Y - yDelta);
+                        break;
+                }
+
+                return true;
+            }
+        });
+        setContentView(info);
 
         TextView pcTitle = (TextView)findViewById(R.id.textView1);
         ActionBar actionBar = getSupportActionBar();
@@ -66,6 +97,7 @@ public class infoPC extends AppCompatActivity {
                 img.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.pc_5));
                 break;
         }
+
 
     } // end of onCreate
 

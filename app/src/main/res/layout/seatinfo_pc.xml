@@ -5,6 +5,6 @@
     android:id="@+id/seatinfo_pc">
     <com.example.capstone2.pcbanggo.MyView
         android:id="@+id/myView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
 </LinearLayout>

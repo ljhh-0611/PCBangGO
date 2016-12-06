@@ -36,6 +36,14 @@ public class MyView extends View {
     }
 
     @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        // 캔버스의 크기를 설정
+        int width = 1800;
+        int height = 1800;
+        setMeasuredDimension(width, height);
+    }
+
+    @Override
     protected void onDraw(Canvas canvas) { // 화면을 그려주는 작업
         Paint paint = new Paint(); // 화면에 그려줄 도구를 셋팅하는 객체
         paint.setStyle(Paint.Style.FILL);
@@ -73,6 +81,9 @@ public class MyView extends View {
                 break;
             case "Choice":
                 id = 3;
+                canvas.drawRect(420,80,500,92,paint);
+                paint.setColor(Color.parseColor("#64000000"));
+                canvas.drawRect(340,315,420,475,paint);
                 break;
             case "Red":
                 id = 4;
@@ -131,7 +142,16 @@ public class MyView extends View {
         }
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(Color.parseColor("#55C033"));
-         canvas.drawRect(x0-30,y0-25,x1 +col*75 - 40 ,y1+ row * 75 - 40,paint);
+        canvas.drawRect(x0-30,y0-25,x1 +col*75 - 40 ,y1+ row * 75 - 40,paint);
+
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(Color.BLACK);
+        canvas.drawRect(x1 + col*75 -20, y0,x1 + col*75 + 60,y0+10,paint);
+        canvas.drawText("출입문", x1 + col*75 + 80, y0+20,paint2);
+        paint.setColor(Color.parseColor("#64000000"));
+        canvas.drawRect(x1 + col*75 -20, y0 +60,x1 + col*75 + 60,y0+70,paint);
+        canvas.drawText("흡연실", x1 + col*75 + 80, y0+80,paint2);
+        // drawtext가 됬따가 안됬따가 ㅠㅠㅠㅠㅠㅠ
     }
 }
 
