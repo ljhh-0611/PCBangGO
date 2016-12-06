@@ -261,7 +261,7 @@ public class PCroomDBHelper extends SQLiteOpenHelper {
                 "@2:73:38:17:-8:-57:15:-25:-17:-93:53:0:0:0:0:0:0:0:0:0:0:0:"+
                 "@3:56:-124:51:33:14:68:0:21:0:0:0:0:0:0:0:0:0:0:0:0:0:"+
                 "@4:79:17:-33:-39:-16:-8:118:-31:7:79:123:0:0:0:0:0:0:0:0:0:0:";
-        String[] can_seats = {"'3POP'","'Arachne'", "'Max'","'Choice'","'Red'"};
+        String[] can_seats = {"'3POP'","'Gallery'", "'Max'","'Choice'","'Red'"};
         String[] cut_at = receive.split("@");
         for (int i=0;i < 5;i++) {
             String[] cut_colon = cut_at[i].split(":");

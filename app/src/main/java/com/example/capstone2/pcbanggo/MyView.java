@@ -62,7 +62,7 @@ public class MyView extends View {
 //                paint.setColor(Color.parseColor("#64000000"));
 //                canvas.drawRect(925,600,1000,740,paint);
                 break;
-            case "Arachne":
+            case "Gallery":
                 id = 1;
                 break;
             case "Max":

@@ -142,8 +142,8 @@ public class infoPC extends AppCompatActivity {
         pcroomDBHelper = new PCroomDBHelper(this);
         pcroomDB = pcroomDBHelper.getWritableDatabase();
 
-        String[] PCrooms = {"'3POP'","'Arachne'", "'Max'","'Choice'","'Red'"};
-        String[] can_seats = {"'3POP'","'Arachne'", "'Max'","'Choice'","'Red'"};
+        String[] PCrooms = {"'3POP'","'Gallery'", "'Max'","'Choice'","'Red'"};
+        String[] can_seats = {"'3POP'","'Gallery'", "'Max'","'Choice'","'Red'"};
         String[] cut_at = receive.split("@");
         for (int i=0;i < 5;i++) {
             String[] cut_colon = cut_at[i].split(":");
