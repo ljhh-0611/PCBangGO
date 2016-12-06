@@ -9,6 +9,9 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
+import static android.R.attr.x;
+import static android.R.attr.y;
+
 
 /**
  * Created by skscp on 2016-11-16.
@@ -55,12 +58,18 @@ public class MyView extends View {
         switch (pcroom) {
             case "3POP":
                 id = 0;
+//                canvas.drawRect(120,1100,200,1112,paint);
+//                paint.setColor(Color.parseColor("#64000000"));
+//                canvas.drawRect(925,600,1000,740,paint);
                 break;
             case "Arachne":
                 id = 1;
                 break;
             case "Max":
                 id = 2;
+                canvas.drawRect(620,800,700,812,paint);
+                paint.setColor(Color.parseColor("#64000000"));
+                canvas.drawRect(100,380,180,540,paint);
                 break;
             case "Choice":
                 id = 3;
@@ -98,7 +107,6 @@ public class MyView extends View {
 
         int x0 = 100, x1 = 175;
         int y0 = 100, y1 = 175;
-
         int i, j;
         for (i = 0; i < col; i++) {
             for (j = 0; j < row; j++) {
@@ -114,10 +122,16 @@ public class MyView extends View {
                         paint2.setColor(Color.parseColor("#B5000000"));
                     }
                     canvas.drawRect(x0 + i * 75, y0 + j * 75, x1 + i * 75, y1 + j * 75, paint);
-                    canvas.drawText(seats[i * row + j], x0 + i * 75 + 20, y0 + j * 75 + 50, paint2);
+                    if(seat_map[i][j] < 100)
+                        canvas.drawText(seats[i * row + j], x0 + i* 75 + 20, y0 + j*75 + 50, paint2);
+                    else
+                        canvas.drawText(seats[i * row + j], x0 + i* 75 + 5, y0 + j*75 + 50, paint2);
                 }
             }
         }
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(Color.parseColor("#55C033"));
+         canvas.drawRect(x0-30,y0-25,x1 +col*75 - 40 ,y1+ row * 75 - 40,paint);
     }
 }
 

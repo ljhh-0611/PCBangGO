@@ -53,7 +53,7 @@ public class infoPC extends AppCompatActivity {
             case "3POP":
                 img.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.pc_1));
                 break;
-            case "Arachne":
+            case "Gallery":
                 img.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.pc_2));
                 break;
             case "Max":

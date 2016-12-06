@@ -142,7 +142,7 @@ public class SeatCursorAdapter extends CursorAdapter {
                 case "3POP":
                     img.setImageDrawable(context.getDrawable(R.drawable.pc_1));
                     break;
-                case "Arachne":
+                case "Gallery":
                     img.setImageDrawable(context.getDrawable(R.drawable.pc_2));
                     break;
                 case "Max":

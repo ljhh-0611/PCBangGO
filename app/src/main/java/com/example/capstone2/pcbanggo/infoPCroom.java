@@ -33,33 +33,33 @@ public class infoPCroom extends AppCompatActivity{
         switch (Pcroom) {
             case "3POP":
                 img.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.pc_1));
-                location.setText("경기도 수원시 율전동 ㅁㅁㅁ ㅁㅁㅁ");
+                location.setText("경기도 수원시 장안구 화산로233번길 63 쓰리팝PC");
                 pc.setText("CPU : ㅁㅁㅁ\nRAM : ㅁㅁㅁ\nGraphic : ㅁㅁㅁ");
                 phone.setText("031-123-4567");
                 break;
-            case "Arachne":
+            case "Gallery":
                 img.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.pc_2));
-                location.setText("경기도 수원시 율전동 ㅁㅁㅁ ㅁㅁㅁ");
+                location.setText("경기도 수원시 장안구 율전동 408-16 갤러리PC");
                 pc.setText("CPU : ㅁㅁㅁ\nRAM : ㅁㅁㅁ\nGraphic : ㅁㅁㅁ");
                 phone.setText("031-123-4567");
                 break;
             case "Max":
                 img.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.pc_3));
-                location.setText("경기도 수원시 율전동 ㅁㅁㅁ ㅁㅁㅁ");
-                pc.setText("CPU : ㅁㅁㅁ\nRAM : ㅁㅁㅁ\nGraphic : ㅁㅁㅁ");
+                location.setText("경기도 수원시 장안구 율전동 288-40 맥스피드 PC");
+                pc.setText("CPU : i5-4690\nRAM : 8GB\nGraphic : GTX-760");
                 phone.setText("031-123-4567");
                 break;
             case "Choice":
                 img.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.pc_4));
-                location.setText("경기도 수원시 율전동 ㅁㅁㅁ ㅁㅁㅁ");
+                location.setText("경기도 수원시 장안구 서부로 2136 초이스PC");
                 pc.setText("CPU : ㅁㅁㅁ\nRAM : ㅁㅁㅁ\nGraphic : ㅁㅁㅁ");
                 phone.setText("031-123-4567");
                 break;
             case "Red":
                 img.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.pc_5));
-                location.setText("경기도 수원시 율전동 ㅁㅁㅁ ㅁㅁㅁ");
-                pc.setText("CPU : ㅁㅁㅁ\nRAM : ㅁㅁㅁ\nGraphic : ㅁㅁㅁ");
-                phone.setText("031-123-4567");
+                location.setText("경기도 수원시 장안구 천천동 527-4 광장프라자 901 레드 PC");
+                pc.setText("CPU : i5-6500\nRAM : 8GB\nGraphic : GTX-1060\n기타 : 32/40 인치 모니터, 기계식 키보드");
+                phone.setText("010-7117-1082");
                 break;
         }
 
