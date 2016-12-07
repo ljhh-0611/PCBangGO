@@ -204,6 +204,7 @@ public class MainActivity extends AppCompatActivity
         String[] PCrooms = {"'3POP'","'Gallery'", "'Max'","'Choice'","'Red'"};
         String[] can_seats = {"'3POP'","'Gallery'", "'Max'","'Choice'","'Red'"};
         String[] cut_at = receive.split("@");
+        pcroomDB = pcroomDBHelper.getWritableDatabase();
         for (int i=1;i < 5;i++) { // 쓰리팝 데이터 확인
             String[] cut_colon = cut_at[i].split(":");
             int limit = Integer.parseInt(cut_colon[1]);
@@ -227,10 +228,9 @@ public class MainActivity extends AppCompatActivity
             buff.append("'");
             can_seats[i] = buff.toString();
             String query = String.format("UPDATE pc_seat SET can_seat =" +can_seats[i]+ " WHERE name = " + PCrooms[i]);
-            pcroomDB = pcroomDBHelper.getWritableDatabase();
             pcroomDB.execSQL( query );
-            pcroomDB.close();
         }
+        pcroomDB.close();
 
     }
 
