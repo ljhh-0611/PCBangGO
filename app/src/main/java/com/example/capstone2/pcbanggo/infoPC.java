@@ -33,6 +33,8 @@ public class infoPC extends AppCompatActivity {
 
     Timer refresh;
 
+    View myinfo;
+
     asyncPHP task;
     String result;
     private int xDelta, yDelta;
@@ -64,7 +66,7 @@ public class infoPC extends AppCompatActivity {
 
 
         View info = (View) getLayoutInflater().inflate(R.layout.info_pc, null);
-        final View myinfo = (View) info.findViewById(R.id.myView);
+        myinfo = (View) info.findViewById(R.id.myView);
         final int x1 = 175 +col*75 - 40;
         final int y1 = 175 +row * 75 - 40;
         System.out.println("x1, y1" + x1 + " " + y1);
@@ -137,7 +139,7 @@ public class infoPC extends AppCompatActivity {
                     public void run() {
                         task = new asyncPHP();
                         task.execute();
-                        //TODO - 사진 업데이트 해서 다시 뿌려주기
+                        myinfo.invalidate();
                     }
                 });
             }
@@ -222,6 +224,8 @@ public class infoPC extends AppCompatActivity {
             can_seats[i] = buff.toString();
             String query = String.format("UPDATE pc_seat SET can_seat =" +can_seats[i]+ " WHERE name = " + PCrooms[i]);
             pcroomDB.execSQL( query );
+            pcroomDB.close();
+            pcroomDBHelper.close();
 
         }
 
@@ -237,7 +241,7 @@ public class infoPC extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-
+            update(result);
             //txt.setText(result);
         }
 
@@ -271,7 +275,6 @@ public class infoPC extends AppCompatActivity {
                     }
 
                     result = output.toString();
-                    update(result);
                 }
             } catch (MalformedURLException e) {
                 e.printStackTrace();

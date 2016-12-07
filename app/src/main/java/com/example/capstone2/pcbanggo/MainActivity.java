@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity
         pcroomDB = pcroomDBHelper.getWritableDatabase();
         seatCursor = pcroomDB.rawQuery(seatSelect,null);
         seatAdapter = new SeatCursorAdapter(this,seatCursor,0,false);
+        pcroomDB.close();
 
         listView.setAdapter(seatAdapter);
 
@@ -125,7 +126,7 @@ public class MainActivity extends AppCompatActivity
                     public void run() {
                         task = new asyncPHP();
                         task.execute();
-                        ((SeatCursorAdapter)listView.getAdapter()).notifyDataSetChanged();
+                        //((SeatCursorAdapter)listView.getAdapter()).notifyDataSetChanged();
                     }
                 });
             }
@@ -222,8 +223,9 @@ public class MainActivity extends AppCompatActivity
             buff.append("'");
             can_seats[i] = buff.toString();
             String query = String.format("UPDATE pc_seat SET can_seat =" +can_seats[i]+ " WHERE name = " + PCrooms[i]);
+            pcroomDB = pcroomDBHelper.getWritableDatabase();
             pcroomDB.execSQL( query );
-
+            pcroomDB.close();
         }
 
     }
@@ -239,7 +241,7 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-
+            update(result);
             //txt.setText(result);
         }
 
@@ -273,8 +275,6 @@ public class MainActivity extends AppCompatActivity
                     }
 
                     result = output.toString();
-
-                    update(result);
 
                 }
             } catch (MalformedURLException e) {
