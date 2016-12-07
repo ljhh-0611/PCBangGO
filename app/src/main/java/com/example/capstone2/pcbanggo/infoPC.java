@@ -65,7 +65,6 @@ public class infoPC extends AppCompatActivity {
                 row = rows[4];col=cols[4];break;
         }
         pcroomDBHelper = new PCroomDBHelper(this);
-        pcroomDB = pcroomDBHelper.getWritableDatabase();
 
         View info = (View) getLayoutInflater().inflate(R.layout.info_pc, null);
         myinfo = (View) info.findViewById(R.id.myView);
@@ -125,7 +124,6 @@ public class infoPC extends AppCompatActivity {
                 img.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.pc_5));
                 break;
         }
-        pcroomDB.close();
         pcroomDBHelper.close();
     } // end of onCreate
 
