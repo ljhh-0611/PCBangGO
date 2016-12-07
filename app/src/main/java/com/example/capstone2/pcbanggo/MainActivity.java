@@ -49,6 +49,9 @@ public class MainActivity extends AppCompatActivity
     asyncPHP task;
     String result;
 
+    int cursor_which = 0;
+    boolean check = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         startActivity(new Intent(this, SplashActivity.class));
@@ -103,7 +106,9 @@ public class MainActivity extends AppCompatActivity
                 builder.setTitle("필요 연속 좌석")
                         .setItems(people, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                listView.setAdapter(new SeatCursorAdapter(view.getContext(),seatCursor,which,checkBox.isChecked()));
+                                cursor_which = which;
+                                check = checkBox.isChecked();
+                                listView.setAdapter(new SeatCursorAdapter(view.getContext(),seatCursor,cursor_which,check));
                             }
                         });
                 builder.setNegativeButton("취소", null);
@@ -128,7 +133,11 @@ public class MainActivity extends AppCompatActivity
                     public void run() {
                         task = new asyncPHP();
                         task.execute();
+                        pcroomDB = pcroomDBHelper.getWritableDatabase();
+                        seatCursor = pcroomDB.rawQuery(seatSelect,null);
+                        listView.setAdapter(new SeatCursorAdapter(getApplicationContext(),seatCursor,cursor_which,check));
                         //((SeatCursorAdapter)listView.getAdapter()).notifyDataSetChanged();
+                        pcroomDB.close();
                     }
                 });
             }
@@ -139,6 +148,12 @@ public class MainActivity extends AppCompatActivity
     protected void onPause() {
         super.onPause();
         refresh.cancel();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        pcroomDBHelper.close();
     }
 
     @Override
