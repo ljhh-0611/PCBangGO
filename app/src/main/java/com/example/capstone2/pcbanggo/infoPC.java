@@ -89,9 +89,9 @@ public class infoPC extends AppCompatActivity {
                     case MotionEvent.ACTION_POINTER_UP:
                         break;
                     case MotionEvent.ACTION_MOVE:
-                            if ((X - xDelta<=0)&&(X-xDelta>=700-x1))
+                            if ((X - xDelta<=0)&&(X-xDelta>=500-x1))
                             myinfo.setTranslationX(X - xDelta);
-                            if (Y-yDelta<= 0&&(Y-yDelta>=1000-y1))
+                            if (Y-yDelta<= 0&&(Y-yDelta>=800-y1))
                             myinfo.setTranslationY(Y - yDelta);
 
                         break;
@@ -110,7 +110,7 @@ public class infoPC extends AppCompatActivity {
         ImageView img = (ImageView) findViewById(R.id.imageView1);
         switch (Pcroom) {
             case "3POP":
-                img.setImageDrawable(get.getDrawable(this,R.drawable.pc_1));
+                img.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.pc_1));
                 break;
             case "Gallery":
                 img.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.pc_2));
@@ -208,7 +208,9 @@ public class infoPC extends AppCompatActivity {
             StringBuilder buff = new StringBuilder();
             buff.append("'");
             int count = 0;
-            for(int j=2;j<limit/8+3;j++) {
+            int limit_col = limit/8+3;
+            if (limit%8==0) limit_col--;
+            for(int j=2;j<limit_col;j++) {
                 byte seat = Byte.parseByte(cut_colon[j]);
                 for(int k=0;k<8;k++) {
                     if(count>=limit) break;

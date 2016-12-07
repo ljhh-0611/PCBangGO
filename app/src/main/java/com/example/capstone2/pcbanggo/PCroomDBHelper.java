@@ -269,7 +269,9 @@ public class PCroomDBHelper extends SQLiteOpenHelper {
             StringBuilder buff = new StringBuilder();
             buff.append("'");
             int count = 0;
-            for(int j=2;j<limit/8+3;j++) {
+            int limit_col = limit/8+3;
+            if (limit%8==0) limit_col--;
+            for(int j=2;j<limit_col;j++) {
                 byte seat = Byte.parseByte(cut_colon[j]);
                 for(int k=0;k<8;k++) {
                     if(count>=limit) break;

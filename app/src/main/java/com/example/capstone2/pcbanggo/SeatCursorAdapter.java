@@ -33,15 +33,14 @@ public class SeatCursorAdapter extends CursorAdapter {
     int find_seat(int[][] seat_map, int[][] map_orient, int[] can_seat, int j, int k, int row, int col, int count) {
         if (j>=col||k>=row||seat_map[j][k]==0)
             return count;
-        if (can_seat[seat_map[j][k]-1]!=0)
-            return count;
-        if (map_orient[j][k]==1) {
-            can_seat[seat_map[j][k] - 1] = 1;   // 한번 확인 한 좌석 체크
-            count = find_seat(seat_map, map_orient, can_seat, j, k + 1, row, col, count + 1);
-        }
-        else if (map_orient[j][k]==2) {
-            can_seat[seat_map[j][k] - 1] = 1;
-            count = find_seat(seat_map, map_orient, can_seat, j + 1, k, row, col, count + 1);
+        if (can_seat[seat_map[j][k]-1]==0) {
+            if (map_orient[j][k] == 1) {
+                can_seat[seat_map[j][k] - 1] = 1;   // 한번 확인 한 좌석 체크
+                count = find_seat(seat_map, map_orient, can_seat, j, k + 1, row, col, count + 1);
+            } else if (map_orient[j][k] == 2) {
+                can_seat[seat_map[j][k] - 1] = 1;
+                count = find_seat(seat_map, map_orient, can_seat, j + 1, k, row, col, count + 1);
+            }
         }
         return count;
     }
