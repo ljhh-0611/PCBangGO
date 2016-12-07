@@ -273,10 +273,10 @@ public class PCroomDBHelper extends SQLiteOpenHelper {
             if (limit%8==0) limit_col--;
             for(int j=2;j<limit_col;j++) {
                 byte seat = Byte.parseByte(cut_colon[j]);
-                for(int k=0;k<8;k++) {
+                for(int k=7;k>=0;k--) {
                     if(count>=limit) break;
-                    buff.append((seat & 1)+" ");
-                    seat = (byte) (seat>>>1);
+                    byte temp_seat = (byte) (seat>>>k);
+                    buff.append((temp_seat & 1)+" ");
                     count ++;
                 }
             }

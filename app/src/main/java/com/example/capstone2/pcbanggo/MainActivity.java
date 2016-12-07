@@ -220,7 +220,6 @@ public class MainActivity extends AppCompatActivity
                     if(count>=limit) break;
                     byte temp_seat = (byte) (seat>>>k);
                     buff.append((temp_seat & 1)+" ");
-                    //seat = (byte) (seat>>>1);
                     count ++;
                 }
             }
