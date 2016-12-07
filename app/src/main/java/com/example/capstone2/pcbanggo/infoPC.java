@@ -42,7 +42,8 @@ public class infoPC extends AppCompatActivity {
     int[] cols = {17, 9, 18, 10, 12};
     int row,col;
 
-
+    PCroomDBHelper pcroomDBHelper;
+    SQLiteDatabase pcroomDB;
 
 
     @Override
@@ -63,7 +64,8 @@ public class infoPC extends AppCompatActivity {
             case "Red":
                 row = rows[4];col=cols[4];break;
         }
-
+        pcroomDBHelper = new PCroomDBHelper(this);
+        pcroomDB = pcroomDBHelper.getWritableDatabase();
 
         View info = (View) getLayoutInflater().inflate(R.layout.info_pc, null);
         myinfo = (View) info.findViewById(R.id.myView);
@@ -108,7 +110,7 @@ public class infoPC extends AppCompatActivity {
         ImageView img = (ImageView) findViewById(R.id.imageView1);
         switch (Pcroom) {
             case "3POP":
-                img.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.pc_1));
+                img.setImageDrawable(get.getDrawable(this,R.drawable.pc_1));
                 break;
             case "Gallery":
                 img.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.pc_2));
@@ -123,8 +125,8 @@ public class infoPC extends AppCompatActivity {
                 img.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.pc_5));
                 break;
         }
-
-
+        pcroomDB.close();
+        pcroomDBHelper.close();
     } // end of onCreate
 
     @Override
@@ -194,10 +196,6 @@ public class infoPC extends AppCompatActivity {
 
     void update(String receive){
 
-        PCroomDBHelper pcroomDBHelper;
-        SQLiteDatabase pcroomDB;
-
-        pcroomDBHelper = new PCroomDBHelper(this);
         pcroomDB = pcroomDBHelper.getWritableDatabase();
 
         String[] PCrooms = {"'3POP'","'Gallery'", "'Max'","'Choice'","'Red'"};
@@ -224,11 +222,8 @@ public class infoPC extends AppCompatActivity {
             can_seats[i] = buff.toString();
             String query = String.format("UPDATE pc_seat SET can_seat =" +can_seats[i]+ " WHERE name = " + PCrooms[i]);
             pcroomDB.execSQL( query );
-            pcroomDB.close();
-            pcroomDBHelper.close();
-
         }
-
+        pcroomDB.close();
     }
     private class asyncPHP extends AsyncTask<Void,Void,Void> {//param, progress, result
 
@@ -269,11 +264,9 @@ public class infoPC extends AppCompatActivity {
                             }
                             output.append(line + "\n");
                         }
-
                         reader.close();
                         conn.disconnect();
                     }
-
                     result = output.toString();
                 }
             } catch (MalformedURLException e) {

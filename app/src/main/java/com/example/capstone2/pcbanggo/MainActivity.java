@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity
         pcroomDB = pcroomDBHelper.getWritableDatabase();
         seatCursor = pcroomDB.rawQuery(seatSelect,null);
         seatAdapter = new SeatCursorAdapter(this,seatCursor,0,false);
-        pcroomDB.close();
+
 
         listView.setAdapter(seatAdapter);
 
@@ -110,8 +110,10 @@ public class MainActivity extends AppCompatActivity
                 builder.setView(checkBoxView);
                 builder.create();
                 builder.show();
+
             }
         });
+        pcroomDB.close();
     }
 
     @Override

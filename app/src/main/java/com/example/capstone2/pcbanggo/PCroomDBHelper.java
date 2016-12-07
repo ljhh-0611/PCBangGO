@@ -18,7 +18,7 @@ public class PCroomDBHelper extends SQLiteOpenHelper {
     String KEY_ORIENT = "seat_orient";
     String KEY_CANSEAT = "can_seat";
 
-    public PCroomDBHelper(Context context){super(context,"pcpc.db",null,1);}
+    public PCroomDBHelper(Context context){super(context,"pcpc.db",null,3);}
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
