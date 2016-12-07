@@ -7,10 +7,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
-
-import static android.R.attr.x;
-import static android.R.attr.y;
 
 
 /**
@@ -146,6 +144,7 @@ public class MyView extends View {
 
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.BLACK);
+        paint2.setColor(Color.parseColor("#B5000000"));
         canvas.drawRect(x1 + col*75 -20, y0,x1 + col*75 + 60,y0+10,paint);
         canvas.drawText("출입문", x1 + col*75 + 80, y0+20,paint2);
         paint.setColor(Color.parseColor("#64000000"));
