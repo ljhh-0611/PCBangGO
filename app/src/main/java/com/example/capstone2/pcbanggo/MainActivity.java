@@ -201,7 +201,7 @@ public class MainActivity extends AppCompatActivity
         String[] PCrooms = {"'3POP'","'Gallery'", "'Max'","'Choice'","'Red'"};
         String[] can_seats = {"'3POP'","'Gallery'", "'Max'","'Choice'","'Red'"};
         String[] cut_at = receive.split("@");
-        for (int i=0;i < 5;i++) {
+        for (int i=1;i < 5;i++) { // 쓰리팝 데이터 확인
             String[] cut_colon = cut_at[i].split(":");
             int limit = Integer.parseInt(cut_colon[1]);
             if(limit < 0) limit &= 0xFF;
@@ -210,10 +210,11 @@ public class MainActivity extends AppCompatActivity
             int count = 0;
             for(int j=2;j<limit/8+3;j++) {
                 byte seat = Byte.parseByte(cut_colon[j]);
-                for(int k=0;k<8;k++) {
+                for(int k=7;k>=0;k--) {
                     if(count>=limit) break;
-                    buff.append((seat & 1)+" ");
-                    seat = (byte) (seat>>>1);
+                    byte temp_seat = (byte) (seat>>>k);
+                    buff.append((temp_seat & 1)+" ");
+                    //seat = (byte) (seat>>>1);
                     count ++;
                 }
             }

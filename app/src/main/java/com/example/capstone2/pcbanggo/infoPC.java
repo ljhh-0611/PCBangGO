@@ -95,7 +95,6 @@ public class infoPC extends AppCompatActivity {
                 return true;
             }
         });
-
         setContentView(info);
 
         TextView pcTitle = (TextView)findViewById(R.id.textView1);

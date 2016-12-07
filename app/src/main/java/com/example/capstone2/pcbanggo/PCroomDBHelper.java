@@ -18,7 +18,7 @@ public class PCroomDBHelper extends SQLiteOpenHelper {
     String KEY_ORIENT = "seat_orient";
     String KEY_CANSEAT = "can_seat";
 
-    public PCroomDBHelper(Context context){super(context,"pcroom.db",null,25);}
+    public PCroomDBHelper(Context context){super(context,"pcpc.db",null,1);}
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
@@ -45,8 +45,8 @@ public class PCroomDBHelper extends SQLiteOpenHelper {
                         "0 102 0 91 86 0 0 0 0 66 59 0 48 45 0 36 31 0 20 15 0 4 " +
                         "0 103 0 90 87 0 0 0 0 65 60 0 47 46 0 35 32 0 19 16 0 3 " +
                         "0 104 0 89 88 0 0 0 0 0 0 0 0 0 0 34 33 0 18 17 0 2 " +
-                        "0 105 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 " +
-                        "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " +
+                        "0 105 0 0 0 0 0 75 0 63 62 0 140 0 0 0 0 0 0 0 0 1 " +
+                        "0 0 0 0 0 0 0 76 0 64 61 0 139 0 0 0 0 0 0 0 0 0 " +
                         "0 0 0 106 107 108 109 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " +
                         "116 115 114 113 112 111 110 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " +
                         "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " +
@@ -151,8 +151,8 @@ public class PCroomDBHelper extends SQLiteOpenHelper {
                         "0 2 0 2 2 0 0 0 0 2 2 0 2 2 0 2 2 0 2 2 0 2 " +
                         "0 2 0 2 2 0 0 0 0 2 2 0 2 2 0 2 2 0 2 2 0 2 " +
                         "0 2 0 2 2 0 0 0 0 0 0 0 0 0 0 2 2 0 2 2 0 2 " +
-                        "0 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 " +
-                        "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " +
+                        "0 2 0 0 0 0 0 2 0 2 2 0 2 0 0 0 0 0 0 0 0 2 " +
+                        "0 0 0 0 0 0 0 2 0 2 2 0 2 0 0 0 0 0 0 0 0 0 " +
                         "0 0 0 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " +
                         "1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " +
                         "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " +
