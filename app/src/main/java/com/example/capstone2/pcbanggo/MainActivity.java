@@ -165,13 +165,7 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-//
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.main, menu);
-//        return true;
-//    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -196,8 +190,15 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.contact_us) {
             // Handle the camera action
-        } else if (id == R.id.make) {
 
+        } else if (id == R.id.make) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+            builder.setTitle("만든이들");
+            builder.setMessage("이재훈  이태형\n이근성  박큰산\n임현도  김성보");
+            //builder.setNegativeButton("취소", null);
+            //builder.setPositiveButton("확인",null);
+            builder.create();
+            builder.show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
