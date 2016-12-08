@@ -40,7 +40,7 @@ public class infoPCroom extends AppCompatActivity{
             case "Gallery":
                 img.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.pc_2));
                 location.setText("경기도 수원시 장안구 율전동 408-16 갤러리PC");
-                pc.setText("CPU : ㅁㅁㅁ\nRAM : ㅁㅁㅁ\nGraphic : ㅁㅁㅁ");
+                pc.setText("CPU : i5-4690\nRAM : 8GB\nGraphic : GTX-960");
                 phone.setText("031-123-4567");
                 break;
             case "Max":
