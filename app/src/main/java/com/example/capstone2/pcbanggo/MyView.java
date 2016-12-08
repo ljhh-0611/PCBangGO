@@ -70,6 +70,9 @@ public class MyView extends View {
                 break;
             case "Gallery":
                 id = 1;
+                canvas.drawRect(620,800,700,812,paint);
+                paint.setColor(Color.parseColor("#64000000"));
+                canvas.drawRect(100,380,180,540,paint);
                 break;
             case "Max":
                 id = 2;

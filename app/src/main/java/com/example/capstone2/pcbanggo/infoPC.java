@@ -38,8 +38,8 @@ public class infoPC extends AppCompatActivity {
     asyncPHP task;
     String result;
     private int xDelta, yDelta;
-    int[] rows = {22, 16, 9, 13, 13};
-    int[] cols = {17, 9, 18, 10, 12};
+    int[] rows = {22, 9, 9, 13, 13};
+    int[] cols = {17, 22, 18, 10, 12};
     int row,col;
 
     PCroomDBHelper pcroomDBHelper;
