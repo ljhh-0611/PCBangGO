@@ -36,8 +36,8 @@ public class MyView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         // 캔버스의 크기를 설정
-        int width = 1800;
-        int height = 1800;
+        int width = 2050;
+        int height = 2050;
         setMeasuredDimension(width, height);
     }
 
