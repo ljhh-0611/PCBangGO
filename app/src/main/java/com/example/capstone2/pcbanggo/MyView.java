@@ -70,15 +70,16 @@ public class MyView extends View {
                 break;
             case "Gallery":
                 id = 1;
-                //canvas.drawRect(620,800,700,812,paint);
+                canvas.drawRect(800,75,880,87,paint);
                 paint.setColor(Color.parseColor("#64000000"));
-                //canvas.drawRect(100,380,180,540,paint);
+                canvas.drawRect(1600,330,1750,760,paint);
+                canvas.drawRect(120,90,320,260,paint);
                 break;
             case "Max":
                 id = 2;
                 canvas.drawRect(620,800,700,812,paint);
                 paint.setColor(Color.parseColor("#64000000"));
-                canvas.drawRect(100,380,180,540,paint);
+                canvas.drawRect(80,380,190,580,paint);
                 break;
             case "Choice":
                 id = 3;
@@ -153,7 +154,6 @@ public class MyView extends View {
         paint.setColor(Color.parseColor("#64000000"));
         canvas.drawRect(x1 + col*75 -20, y0 +60,x1 + col*75 + 60,y0+70,paint);
         canvas.drawText("흡연실", x1 + col*75 + 80, y0+80,paint2);
-        // drawtext가 됬따가 안됬따가 ㅠㅠㅠㅠㅠㅠ
     }
 }
 
