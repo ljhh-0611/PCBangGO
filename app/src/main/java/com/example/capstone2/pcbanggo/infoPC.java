@@ -110,19 +110,24 @@ public class infoPC extends AppCompatActivity {
         ImageView img = (ImageView) findViewById(R.id.imageView1);
         switch (Pcroom) {
             case "3POP":
-                img.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.pc_1));
+                //img.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.pc_1));
+                img.setImageResource(R.drawable.pc_1);
                 break;
             case "Gallery":
-                img.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.pc_2));
+                //img.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.pc_2));
+                img.setImageResource(R.drawable.pc_2);
                 break;
             case "Max":
-                img.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.pc_3));
+                //img.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.pc_3));
+                img.setImageResource(R.drawable.pc_3);
                 break;
             case "Choice":
-                img.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.pc_4));
+                //img.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.pc_4));
+                img.setImageResource(R.drawable.pc_4);
                 break;
             case "Red":
-                img.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.pc_5));
+                //img.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.pc_5));
+                img.setImageResource(R.drawable.pc_5);
                 break;
         }
         pcroomDB.close();

@@ -140,19 +140,24 @@ public class SeatCursorAdapter extends CursorAdapter {
             ImageView img = (ImageView) view.findViewById(R.id.imageView1);
             switch (pcroom) {
                 case "3POP":
-                    img.setImageDrawable(context.getDrawable(R.drawable.pc_1));
+                    //img.getDrawable(context.getDrawable(R.drawable.pc_1));
+                    img.setImageResource(R.drawable.pc_1);
                     break;
                 case "Gallery":
-                    img.setImageDrawable(context.getDrawable(R.drawable.pc_2));
+                    //img.setImageDrawable(context.getDrawable(R.drawable.pc_2));
+                    img.setImageResource(R.drawable.pc_2);
                     break;
                 case "Max":
-                    img.setImageDrawable(context.getDrawable(R.drawable.pc_3));
+                    //img.setImageDrawable(context.getDrawable(R.drawable.pc_3));
+                    img.setImageResource(R.drawable.pc_3);
                     break;
                 case "Choice":
-                    img.setImageDrawable(context.getDrawable(R.drawable.pc_4));
+                    //img.setImageDrawable(context.getDrawable(R.drawable.pc_4));
+                    img.setImageResource(R.drawable.pc_4);
                     break;
                 case "Red":
-                    img.setImageDrawable(context.getDrawable(R.drawable.pc_5));
+                    //img.setImageDrawable(context.getDrawable(R.drawable.pc_5));
+                    img.setImageResource(R.drawable.pc_5);
                     break;
             }
 
