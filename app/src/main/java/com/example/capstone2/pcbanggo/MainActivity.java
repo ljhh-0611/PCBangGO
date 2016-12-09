@@ -192,13 +192,7 @@ public class MainActivity extends AppCompatActivity
             // Handle the camera action
 
         } else if (id == R.id.make) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-            builder.setTitle("만든이들");
-            builder.setMessage("이재훈  이태형\n이근성  박큰산\n임현도  김성보");
-            //builder.setNegativeButton("취소", null);
-            //builder.setPositiveButton("확인",null);
-            builder.create();
-            builder.show();
+            // 코드 삭제!!
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
