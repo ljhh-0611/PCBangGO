@@ -42,21 +42,21 @@ public class infoPCroom extends AppCompatActivity{
                 img.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.pc_2));
                 location.setText("경기도 수원시 장안구 율전동 408-16 갤러리PC");
                 pc.setText("CPU : i5-4690\nRAM : 8GB\nGraphic : GTX-960");
-                phone.setText("031-123-4567");
+                phone.setText("");
                 map.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.gall));
                 break;
             case "Max":
                 img.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.pc_3));
                 location.setText("경기도 수원시 장안구 율전동 288-40 맥스피드 PC");
                 pc.setText("CPU : i5-4690\nRAM : 8GB\nGraphic : GTX-760");
-                phone.setText("031-123-4567");
+                phone.setText("");
                 map.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.max));
                 break;
             case "Choice":
                 img.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.pc_4));
                 location.setText("경기도 수원시 장안구 서부로 2136 초이스PC");
                 pc.setText("CPU : i5-4590\nRAM : 8GB\nGraphic : GTX-660");
-                phone.setText("031-123-4567");
+                phone.setText("");
                 map.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.choi));
                 break;
             case "Red":

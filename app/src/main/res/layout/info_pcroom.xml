@@ -48,6 +48,7 @@
                 android:id="@+id/location2"
                 android:textSize="16dp"
                 android:layout_margin="20dp"
+                android:layout_marginRight="20dp"
                 />
 
         </LinearLayout>
@@ -67,7 +68,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/pc2"
                 android:textSize="16dp"
-                android:layout_margin="20dp"/>
+                android:layout_margin="20dp"
+                android:layout_marginRight="20dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -80,13 +82,14 @@
                 android:id="@+id/phone1"
                 android:textSize="20dp"
                 android:layout_margin="20dp"
-                android:text="전화번호 "/>
+                android:text="전화번호 :"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/phone2"
                 android:textSize="16dp"
-                android:layout_margin="20dp"/>
+                android:layout_margin="20dp"
+                android:layout_marginRight="20dp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -104,7 +107,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/map"
-                android:layout_marginLeft="20dp"/>
+                android:layout_margin="20dp"/>
     </LinearLayout>
     </LinearLayout>
 

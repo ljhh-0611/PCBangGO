@@ -119,6 +119,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
         pcroomDB.close();
+        pcroomDBHelper.close();
     }
 
     @Override
